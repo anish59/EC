@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ec.SignUpActivity">
+
+    <ImageView
+        android:id="@+id/imgCloseButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_cancel"
+        android:tint="@color/black" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtSinUpLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="?actionBarSize"
+                android:layout_marginTop="40dp"
+                android:text="@string/sign_up"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_35"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="?actionBarSize"
+                android:layout_marginRight="?actionBarSize"
+                android:layout_marginTop="?actionBarSize"
+                android:drawableStart="@drawable/ic_user"
+                android:hint="@string/full_name"
+                android:maxLines="1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="?actionBarSize"
+                android:layout_marginRight="?actionBarSize"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_envelope"
+                android:hint="email-id"
+                android:maxLines="1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="?actionBarSize"
+                android:layout_marginRight="?actionBarSize"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_contact_book"
+                android:hint="Mobile"
+                android:maxLines="1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="?actionBarSize"
+                android:layout_marginRight="?actionBarSize"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:hint="Password"
+                android:maxLines="1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="?actionBarSize"
+                android:layout_marginRight="?actionBarSize"
+                android:layout_marginTop="16dp"
+                android:drawableStart="@drawable/ic_lock"
+                android:hint="@string/re_enter_password"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_marginBottom="?actionBarSize"
+                android:layout_marginEnd="?actionBarSize"
+                android:layout_marginStart="?actionBarSize"
+                android:layout_marginTop="40dp"
+                android:background="@color/black"
+                android:text="@string/sign_up"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

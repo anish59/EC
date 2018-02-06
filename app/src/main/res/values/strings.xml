@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">EC</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_setting">Setting</string>
+
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="posts">Posts</string>
+    <string name="_22">22</string>
+    <string name="solved">Solved</string>
+    <string name="unsolved">Unsolved</string>
+    <string name="up_votes">Up votes</string>
+    <string name="ethan_hunt">Ethan Hunt</string>
+    <string name="name">Name</string>
+    <string name="ethan_hunt_gmail_com">ethan_hunt@gmail.com</string>
+    <string name="_97">97</string>
+    <string name="total_issues_confronted">Total issues confronted</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="full_name">Full Name</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account?   Sign up</string>
+    <string name="_9876543210">9876543210</string>
+    <string name="_44">44</string>
+</resources>

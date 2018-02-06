@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bottom_navigation"
+    tools:context="com.ec.SplashScreenActivity">
+
+    <com.ec.widgets.TypeWriter
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="E-Complain"
+        android:textColor="@color/colorWhite"
+        android:textSize="50sp"
+        android:textStyle="bold" />
+</FrameLayout>
