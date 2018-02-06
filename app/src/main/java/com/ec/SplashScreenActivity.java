@@ -44,7 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void initAnimation() {
         txtName.setText("");
         txtName.setCharacterDelay(200);
-        txtName.animateText("Blah Blah", new TypeWriter.TyperAnimationListener() {
+        txtName.animateText("E-Complain", new TypeWriter.TyperAnimationListener() {
             @Override
             public void onAnimationOver() {
                 startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));

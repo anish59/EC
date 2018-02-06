@@ -22,4 +22,6 @@ public class FunctionHelper {
         float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return dp;
     }
+
+
 }

@@ -1,7 +1,6 @@
 package com.ec;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ec.fragments.HomeFragment;
 import com.ec.fragments.ProfileFragment;
 import com.ec.helper.FunctionHelper;
 import com.ec.helper.UiHelper;
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private android.widget.RelativeLayout container;
     private Context context;
     private Toolbar incToolBar;
+    private int pageCount = 0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,9 +51,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
                     changeFragment(1);
+                    Log.e("pageCount", pageCount + "");
                     return true;
                 case R.id.navigation_setting:
                     changeFragment(2);
+                    Log.e("pageCount", pageCount + "");
                     return true;
             }
             return false;
@@ -101,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.removeShiftMode(navigation, context);
     }
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
     private void changeFragment(int position) {
 
         Fragment newFragment = null;
@@ -109,10 +119,10 @@ public class MainActivity extends AppCompatActivity {
 
             Bundle args = new Bundle();
             args.putString("keyName", "Home");
-            ProfileFragment pf = new ProfileFragment();
-            pf.setArguments(args);
+            HomeFragment homeFragment = new HomeFragment();
+            homeFragment.setArguments(args);
 
-            newFragment = pf;
+            newFragment = homeFragment;
 
         } else if (position == 1) {
 
@@ -131,13 +141,20 @@ public class MainActivity extends AppCompatActivity {
             newFragment = pf;
         }
 
-        getFragmentManager()
+        getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentHolder, newFragment)
+                .addToBackStack("back")
                 .commit();
-
+        pageCount++;
     }
 
+    public void removeBackFragments() {
+        if (pageCount > 1) {
+            getSupportFragmentManager().popBackStack();
+            pageCount--;
+        }
+    }
 
     static class BottomNavigationViewHelper { // actually this is not required for item less than 4
 
