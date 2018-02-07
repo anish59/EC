@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initInnerFragments() {
-        viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragment(new LocationFragment(), "City");
         viewPagerAdapter.addFragment(new LocationFragment(), "Nearby");
         viewPagerAdapter.addFragment(new LocationFragment(), "Yours");

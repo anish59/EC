@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             newFragment = pf;
         }
 
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentHolder, newFragment)
