@@ -83,15 +83,15 @@ public class MainActivity extends AppCompatActivity {
             Window w = getWindow();
             w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().getDecorView().setSystemUiVisibility(
+            /*getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);*/
         }
 
-        UiHelper.initToolbar(MainActivity.this, incToolBar, "EC");
+        UiHelper.initToolbar(MainActivity.this, incToolBar, "E Smart Complain");
     }
 
     @SuppressLint("RestrictedApi")
@@ -106,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationViewHelper.removeShiftMode(navigation, context);
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
 
     private void changeFragment(int position) {
 

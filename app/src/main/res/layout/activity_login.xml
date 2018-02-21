@@ -33,6 +33,8 @@
                 android:layout_marginTop="?actionBarSize"
                 android:drawableStart="@drawable/ic_contact_book"
                 android:hint="Mobile"
+                android:maxLength="15"
+                android:inputType="phone"
                 android:maxLines="1" />
 
             <EditText
@@ -43,6 +45,7 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
 

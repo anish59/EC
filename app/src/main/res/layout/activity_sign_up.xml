@@ -55,6 +55,7 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_envelope"
                 android:hint="email-id"
+                android:inputType="textEmailAddress"
                 android:maxLines="1" />
 
             <EditText
@@ -65,6 +66,8 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_contact_book"
                 android:hint="Mobile"
+                android:inputType="phone"
+                android:maxLength="15"
                 android:maxLines="1" />
 
             <EditText
@@ -75,6 +78,7 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
             <EditText
@@ -85,6 +89,7 @@
                 android:layout_marginTop="16dp"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="@string/re_enter_password"
+                android:inputType="textPassword"
                 android:maxLines="1" />
 
             <Button

@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">EC</string>
+    <string name="app_name">E Smart Complain</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_setting">Setting</string>
 
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_splash_screen"><Spla></Spla>shScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="posts">Posts</string>

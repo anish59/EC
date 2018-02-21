@@ -31,12 +31,12 @@ public class SplashScreenActivity extends AppCompatActivity {
             Window w = getWindow();
             w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().getDecorView().setSystemUiVisibility(
+/*            getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);*/
         }
         initAnimation();
     }
@@ -44,7 +44,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void initAnimation() {
         txtName.setText("");
         txtName.setCharacterDelay(200);
-        txtName.animateText("E-Complain", new TypeWriter.TyperAnimationListener() {
+        txtName.animateText("E Smart\nComplain", new TypeWriter.TyperAnimationListener() {
             @Override
             public void onAnimationOver() {
                 startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
