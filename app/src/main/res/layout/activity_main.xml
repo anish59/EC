@@ -20,7 +20,17 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddComplain"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/navigation"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/_8dp"
+        android:src="@drawable/ic_add_black_24dp"
+        android:tint="@color/colorWhite" />
+
+    <com.ec.widgets.CustomBottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

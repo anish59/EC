@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/incToolBar"
+        layout="@layout/simple_toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/incToolBar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_bottom_navigation"
+                android:scaleType="fitCenter"
+                android:src="@drawable/no_image_found"
+                android:tint="@color/colorDullWhite" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/_8dp"
+                android:src="@drawable/add_image"
+                android:tint="@color/colorWhite" />
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/txtTitle"
+            style="@style/normalTextView"
+            android:hint="@string/title" />
+
+        <EditText
+            android:id="@+id/txtTemplateMsg"
+            style="@style/multiLineTextView"
+            android:hint="@string/enter_description" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/normalButton"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="end"
+        android:text="@string/submit" />
+
+</RelativeLayout>

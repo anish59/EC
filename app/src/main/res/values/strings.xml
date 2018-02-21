@@ -28,4 +28,7 @@
     <string name="_44">44</string>
     <string name="jon_doe">Jon Doe</string>
     <string name="txt_probs">The first attack was on our laboratory -- they questioned the data analysis, our capabilities, our equipment and then as it got nastier, they resorted to personalised attacks on us and our integrity. Their favourite ploy was to dismiss us as a pawn in a conspiracy hatched by Europe (because we get funds from multilateral and bilateral agencies) to destroy the good name of us companies. But this was not all. We heard rumours of phone calls from Colin Powell, then us secretary of state, to the prime minister\'s office. We heard of Washington DC-based high-priced lawyers (lobbyists) flying down to cajole the powers here. We heard of intense activity in corridors in which we have no place.</string>
+    <string name="title">Title</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="submit">Submit</string>
 </resources>

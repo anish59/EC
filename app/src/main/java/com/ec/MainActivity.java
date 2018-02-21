@@ -2,20 +2,26 @@ package com.ec;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,18 +33,23 @@ import com.ec.fragments.HomeFragment;
 import com.ec.fragments.ProfileFragment;
 import com.ec.helper.FunctionHelper;
 import com.ec.helper.UiHelper;
+import com.ec.widgets.CustomBottomNavigationView;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private android.widget.FrameLayout fragmentHolder;
-    private BottomNavigationView navigation;
+    private CustomBottomNavigationView navigation;
     private android.widget.RelativeLayout container;
     private Context context;
     private Toolbar incToolBar;
     private int pageCount = 0;
+    private List<BackStackFragments> backStackFragments;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -47,20 +58,21 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    changeFragment(0);
+                    changeFragment(0, "navigation_home");
                     return true;
                 case R.id.navigation_notifications:
-                    changeFragment(1);
+                    changeFragment(1, "navigation_notifications");
                     Log.e("pageCount", pageCount + "");
                     return true;
                 case R.id.navigation_setting:
-                    changeFragment(2);
+                    changeFragment(2, "navigation_setting");
                     Log.e("pageCount", pageCount + "");
                     return true;
             }
             return false;
         }
     };
+    private android.support.design.widget.FloatingActionButton fabAddComplain;
 
     @SuppressLint("ObsoleteSdkInt")
     @Override
@@ -74,32 +86,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        changeFragment(0); // for setting home fragment at the very starting
+        initListener();
+
+
+        backStackFragments = new ArrayList<>();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
-            w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            /*getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);*/
+            w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS); // for showing same    bg in notification bar
         }
 
+        changeFragment(0, ""); // for setting home fragment at the very starting
+        int navHeight = getNavHeight();
+        if (navHeight > 0) {
+            (findViewById(R.id.container)).setPadding(0, 0, 0, navHeight);
+        }
         UiHelper.initToolbar(MainActivity.this, incToolBar, "E Smart Complain");
+
+
+    }
+
+    private void initListener() {
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        fabAddComplain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddComplainActivity.class));
+            }
+        });
+
     }
 
     @SuppressLint("RestrictedApi")
     private void initViews() {
         setContentView(R.layout.activity_main);
+        this.fabAddComplain = (FloatingActionButton) findViewById(R.id.fabAddComplain);
         this.incToolBar = (Toolbar) findViewById(R.id.toolbar);
         this.container = (RelativeLayout) findViewById(R.id.container);
-        this.navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        this.navigation = (CustomBottomNavigationView) findViewById(R.id.navigation);
         this.fragmentHolder = (FrameLayout) findViewById(R.id.fragmentHolder);
         this.mTextMessage = (TextView) findViewById(R.id.message);
 
@@ -107,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void changeFragment(int position) {
+    private void changeFragment(int position, String name) {
 
-        Fragment newFragment = null;
+        Fragment newFragment;
 
         if (position == 0) {
 
@@ -141,16 +166,28 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentHolder, newFragment)
-                .addToBackStack("back")
+//                .addToBackStack("navigation_home")
                 .commit();
-        pageCount++;
+//        manageBackstack(position, name);
     }
 
-    public void removeBackFragments() {
-        if (pageCount > 1) {
-            getSupportFragmentManager().popBackStack();
-            pageCount--;
+    private void manageBackstack(int position, String name) {
+        if (backStackFragments != null && backStackFragments.size() >= 3) {
+            backStackFragments.remove(0);
         }
+        backStackFragments.add(new BackStackFragments(position, name));
+
+        getSupportFragmentManager().addOnBackStackChangedListener(
+                new FragmentManager.OnBackStackChangedListener() {
+                    public void onBackStackChanged() {
+                       /* if (backStackFragments.size() > 1) {
+                            changeFragment(backStackFragments.get(backStackFragments.size() - 2).pos, backStackFragments.get(backStackFragments.size() - 2).name);
+                            backStackFragments.remove(backStackFragments.size() - 1);
+                        }*/
+
+                        changeFragment(0, "navigation_home");
+                    }
+                });
     }
 
     static class BottomNavigationViewHelper { // actually this is not required for item less than 4
@@ -198,5 +235,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("ObsoleteSdkInt")
+    private int getNavHeight() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+            return 0;
+        try {
 
+            Resources resources = getResources();
+            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                boolean hasMenuKey = ViewConfiguration.get(getApplicationContext()).hasPermanentMenuKey();
+                boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+                if (!hasMenuKey && !hasBackKey) {
+                    return resources.getDimensionPixelSize(resourceId);
+                }
+            }
+        } catch (Exception ex) {
+            return 0;
+        }
+        return 0;
+    }
+
+    public class BackStackFragments {
+        public int pos = 0;
+        public String name;
+
+        public BackStackFragments(int pos, String name) {
+            this.pos = pos;
+            this.name = name;
+        }
+
+
+    }
 }
