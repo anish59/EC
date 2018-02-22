@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/posts"
-                    android:textColor="@color/colorDullWhite" />
+                    android:textColor="@color/colorDullBlack" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/solved"
-                    android:textColor="@color/colorDullWhite" />
+                    android:textColor="@color/colorDullBlack" />
             </LinearLayout>
 
 
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/up_votes"
-                    android:textColor="@color/colorDullWhite" />
+                    android:textColor="@color/colorDullBlack" />
             </LinearLayout>
 
             <LinearLayout
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/unsolved"
-                    android:textColor="@color/colorDullWhite" />
+                    android:textColor="@color/colorDullBlack" />
             </LinearLayout>
 
 

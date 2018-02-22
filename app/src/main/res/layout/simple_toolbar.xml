@@ -3,7 +3,8 @@
     android:id="@+id/toolbar_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/gradient_bottom_navigation">
+    android:background="@drawable/gradient_bottom_navigation"
+    android:paddingTop="@dimen/dp25">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/incToolBar"
-        layout="@layout/simple_toolbar" />
+        layout="@layout/material_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="200dp">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -24,7 +24,7 @@
                 android:background="@drawable/gradient_bottom_navigation"
                 android:scaleType="fitCenter"
                 android:src="@drawable/no_image_found"
-                android:tint="@color/colorDullWhite" />
+                android:tint="@color/colorDullBlack" />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="50dp"
@@ -40,7 +40,10 @@
         <EditText
             android:id="@+id/txtTitle"
             style="@style/normalTextView"
-            android:hint="@string/title" />
+            android:layout_marginTop="@dimen/dp16"
+            android:hint="@string/title"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
 
         <EditText
             android:id="@+id/txtTemplateMsg"
@@ -55,6 +58,7 @@
         style="@style/normalButton"
         android:layout_alignParentBottom="true"
         android:layout_gravity="end"
+        android:background="@drawable/gradient_bottom_navigation"
         android:text="@string/submit" />
 
 </RelativeLayout>

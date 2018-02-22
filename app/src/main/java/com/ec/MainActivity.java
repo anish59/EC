@@ -18,11 +18,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -30,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ec.fragments.HomeFragment;
+import com.ec.fragments.NotificationFragment;
 import com.ec.fragments.ProfileFragment;
 import com.ec.helper.FunctionHelper;
 import com.ec.helper.UiHelper;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar incToolBar;
     private int pageCount = 0;
     private List<BackStackFragments> backStackFragments;
+    private TextView textCartItemCount;
+    private android.support.design.widget.FloatingActionButton fabAddComplain;
+    private double mCartItemCount = 3;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -59,20 +65,21 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     changeFragment(0, "navigation_home");
+                    fabAddComplain.setVisibility(View.VISIBLE);
+                    return true;
+                case R.id.navigation_profile:
+                    changeFragment(1, "navigation_profile");
+                    fabAddComplain.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_notifications:
-                    changeFragment(1, "navigation_notifications");
-                    Log.e("pageCount", pageCount + "");
-                    return true;
-                case R.id.navigation_setting:
-                    changeFragment(2, "navigation_setting");
-                    Log.e("pageCount", pageCount + "");
+                    changeFragment(2, "navigation_notifications");
+                    fabAddComplain.setVisibility(View.GONE);
                     return true;
             }
             return false;
         }
     };
-    private android.support.design.widget.FloatingActionButton fabAddComplain;
+    private TextView txtCount;
 
     @SuppressLint("ObsoleteSdkInt")
     @Override
@@ -103,8 +110,7 @@ public class MainActivity extends AppCompatActivity {
             (findViewById(R.id.container)).setPadding(0, 0, 0, navHeight);
         }
         UiHelper.initToolbar(MainActivity.this, incToolBar, "E Smart Complain");
-
-
+        setupBadge(3, 2);
     }
 
     private void initListener() {
@@ -157,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Bundle args = new Bundle();
             args.putString("keyName", "Notification");
-            ProfileFragment pf = new ProfileFragment();
+            NotificationFragment pf = new NotificationFragment();
             pf.setArguments(args);
             newFragment = pf;
         }
@@ -221,6 +227,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+
         return true;
     }
 
@@ -234,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
     @SuppressLint("ObsoleteSdkInt")
     private int getNavHeight() {
@@ -265,7 +273,41 @@ public class MainActivity extends AppCompatActivity {
             this.pos = pos;
             this.name = name;
         }
+    }
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
+    private void setupBadge(int badgeCount, int menuIndex) {
+        BottomNavigationMenuView bottomNavigationMenuView =
+                (BottomNavigationMenuView) navigation.getChildAt(0);
+        View v = bottomNavigationMenuView.getChildAt(menuIndex);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+
+        View badge = LayoutInflater.from(this)
+                .inflate(R.layout.badge_notification, bottomNavigationMenuView, false);
+        this.txtCount = (TextView) badge.findViewById(R.id.txtCount);
+        if (badgeCount == 0) {
+            return;
+        } else if (badgeCount <= 99) {
+            txtCount.setText(String.format("%d", badgeCount));
+        } else {
+            txtCount.setText("99+");
+        }
+
+
+        ViewTreeObserver vto = txtCount.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                txtCount.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                Log.e("ht", txtCount.getHeight() + "");
+                int h = txtCount.getHeight();
+                int w = txtCount.getWidth();
+                int size = h > w ? h : w;
+                txtCount.setWidth(size);
+                txtCount.setHeight(size);
+            }
+        });
+        itemView.addView(badge);
 
     }
 }
