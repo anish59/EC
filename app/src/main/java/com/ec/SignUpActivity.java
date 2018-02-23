@@ -22,15 +22,20 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-        setContentView(R.layout.activity_sign_up);
-        this.btnSignUp = (Button) findViewById(R.id.btnSignUp);
-        this.imgCloseButton = (ImageView) findViewById(R.id.imgCloseButton);
-        this.txtSinUpLabel = (TextView) findViewById(R.id.txtSinUpLabel);
+        initViews();
+        initListeners();
+        initLogic();
 
+
+    }
+
+    private void initLogic() {
         AdvancedSpannableString ass = new AdvancedSpannableString("SIGN UP");
         ass.setColor(context.getResources().getColor(R.color.colorAccent), "UP");
         txtSinUpLabel.setText(ass);
+    }
 
+    private void initListeners() {
         imgCloseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +51,13 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void initViews() {
+        setContentView(R.layout.activity_sign_up);
+        this.btnSignUp = (Button) findViewById(R.id.btnSignUp);
+        this.imgCloseButton = (ImageView) findViewById(R.id.imgCloseButton);
+        this.txtSinUpLabel = (TextView) findViewById(R.id.txtSinUpLabel);
     }
 
 }

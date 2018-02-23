@@ -38,4 +38,9 @@
     <string name="issue">Issue</string>
     <string name="profile">Profile</string>
     <string name="_0">0</string>
+
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="done">Done !</string>
+    <string name="email_id">email-id</string>
+    <string name="forgot_your_password">Forgot your Password ?</string>
 </resources>

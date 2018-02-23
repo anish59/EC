@@ -22,11 +22,11 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddComplain"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/navigation"
         android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/_8dp"
+        android:layout_margin="@dimen/dp8"
         android:src="@drawable/ic_add_black_24dp"
         android:tint="@color/colorWhite" />
 

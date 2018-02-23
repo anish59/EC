@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.ec.SignUpActivity">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -58,16 +57,20 @@
                 android:text="@string/log_in" />
 
             <TextView
+                android:id="@+id/btnForgotPwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="?actionBarSize"
                 android:layout_marginStart="?actionBarSize"
-                android:layout_marginTop="16dp"
+                android:paddingTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingBottom="16dp"
                 android:gravity="end"
                 android:text="@string/forgot_password"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </ScrollView>
 

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8dp">
+    android:layout_margin="@dimen/dp8">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:orientation="horizontal">
 
 
@@ -34,15 +34,15 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/dp8"
                     android:src="@drawable/ic_like" />
 
                 <TextView
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:layout_marginTop="@dimen/dp8"
                     android:text="Street Fight"
                     android:textColor="@color/black" />
 
@@ -51,8 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txtTitle"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:layout_marginTop="@dimen/dp8"
                     android:maxLines="5"
                     android:text="@string/txt_probs" />
 
@@ -62,9 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/txtDisc"
-                    android:layout_marginEnd="@dimen/_8dp"
-                    android:layout_marginStart="@dimen/_8dp"
-                    android:layout_marginTop="@dimen/_8dp"
+                    android:layout_marginEnd="@dimen/dp8"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:layout_marginTop="@dimen/dp8"
                     android:text="@string/jon_doe"
                     android:textColor="@color/black" />
             </RelativeLayout>

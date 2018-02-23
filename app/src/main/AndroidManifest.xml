@@ -24,10 +24,14 @@
         <activity
             android:name=".AddComplainActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/FullscreenTheme" />
     </application>
 
 </manifest>
