@@ -37,6 +37,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="?actionBarSize"
@@ -47,6 +48,7 @@
                 android:maxLines="1" />
 
             <EditText
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="?actionBarSize"
@@ -58,6 +60,7 @@
                 android:maxLines="1" />
 
             <EditText
+                android:id="@+id/edtMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="?actionBarSize"
@@ -70,6 +73,7 @@
                 android:maxLines="1" />
 
             <EditText
+                android:id="@+id/edtPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="?actionBarSize"
@@ -81,6 +85,7 @@
                 android:maxLines="1" />
 
             <EditText
+                android:id="@+id/edtRePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="?actionBarSize"
