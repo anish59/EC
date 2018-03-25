@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(context, "Please enter Full name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Please enter Full Sname", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(mobile)) {

@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EC.iml" filepath="$PROJECT_DIR$/EC.iml" />
-      <module fileurl="file://D:\AndroidProjects\CurrentProjects\ESmartComplain\EC\EC.iml" filepath="D:\AndroidProjects\CurrentProjects\ESmartComplain\EC\EC.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\AndroidProjects\CurrentProjects\ESmartComplain\EC\app\app.iml" filepath="D:\AndroidProjects\CurrentProjects\ESmartComplain\EC\app\app.iml" />
     </modules>
   </component>
 </project>
