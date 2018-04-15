@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ec.R;
+import com.ec.model.NotificationData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by anish on 22-02-2018.
@@ -16,9 +20,11 @@ import com.ec.R;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.MyViewHolder> {
 
     private Context context;
+    private List<NotificationData> notificationDataList;
 
-    public NotificationAdapter(Context context) {
+    public NotificationAdapter(Context context, List<NotificationData> notificationDataList) {
         this.context = context;
+        this.notificationDataList = notificationDataList;
     }
 
     @Override
@@ -29,12 +35,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.txtTitle.setText(notificationDataList.get(position).getTitle());
+    }
 
+    public void setNotificationData(List<NotificationData> notificationDataList) {
+        this.notificationDataList = new ArrayList<>();
+        this.notificationDataList = notificationDataList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return (notificationDataList != null && notificationDataList.size() > 0 ? notificationDataList.size() : 0);
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -44,6 +56,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
         }
     }
 }

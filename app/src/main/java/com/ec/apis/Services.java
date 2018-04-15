@@ -1,12 +1,18 @@
 package com.ec.apis;
 
+import com.ec.model.AddComplainReq;
+import com.ec.model.BaseResponse;
+import com.ec.model.GetPostRes;
 import com.ec.model.LoginRequest;
 import com.ec.model.LoginResponse;
-import com.ec.model.RegisterRequest;
+import com.ec.model.NotificationResponse;
+import com.ec.model.RegisterReq;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by anish on 29-08-2017.
@@ -14,10 +20,25 @@ import retrofit2.http.GET;
 
 public interface Services {
 
-    @GET("")
+    @POST("UserLogin.php")
     Call<LoginResponse> doLogin(@Body LoginRequest loginRequest);
 
-    @GET("")
-    Call<LoginResponse> doRegister(@Body RegisterRequest registerRequest);
+    @POST("GetUserProfile.php")
+    Call<LoginResponse> getUserProfile(@Query("UserId") String userId);
+
+    @POST("AddPost.php")
+    Call<BaseResponse> addComplain(@Body AddComplainReq addComplainReq);
+
+    @POST("UserRegister.php")
+    Call<LoginResponse> doRegister(@Body RegisterReq registerRequest);
+
+    @GET("GetPosts.php")
+    Call<GetPostRes> getPosts(@Query("Type") int type);
+
+    @GET("GetPosts.php")
+    Call<GetPostRes> getYourPosts(@Query("Type") int type, @Query("UserId") String userId);
+
+    @GET("GetNotification.php")
+    Call<NotificationResponse> getNotificationData(@Query("UserId") String UserId, @Query("Show") String ShowID);
 }
 

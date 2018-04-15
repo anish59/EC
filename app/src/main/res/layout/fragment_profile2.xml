@@ -25,6 +25,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ethan_hunt"
@@ -41,6 +42,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txtEmailId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ethan_hunt_gmail_com"
@@ -57,6 +59,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txtMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_9876543210"
@@ -72,6 +75,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtTotal"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
@@ -107,6 +111,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtSolved"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:background="@drawable/circular_bg"
@@ -135,6 +140,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtUnsolved"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:background="@drawable/circular_bg"

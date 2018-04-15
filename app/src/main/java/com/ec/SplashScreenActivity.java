@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.ec.helper.PrefUtils;
 import com.ec.widgets.TypeWriter;
 
 /**
@@ -47,8 +48,13 @@ public class SplashScreenActivity extends AppCompatActivity {
         txtName.animateText("E Smart\nComplain", new TypeWriter.TyperAnimationListener() {
             @Override
             public void onAnimationOver() {
-                startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
-                finish();
+                if (PrefUtils.getLoggedIn(SplashScreenActivity.this)) {
+                    startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(SplashScreenActivity.this, LoginActivity.class));
+                    finish();
+                }
             }
         });
 

@@ -1,8 +1,10 @@
 package com.ec;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -31,16 +34,24 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ec.apis.Services;
 import com.ec.fragments.HomeFragment;
 import com.ec.fragments.NotificationFragment;
 import com.ec.fragments.ProfileFragment;
 import com.ec.helper.FunctionHelper;
+import com.ec.helper.PrefUtils;
 import com.ec.helper.UiHelper;
+import com.ec.model.GetPostRes;
+import com.ec.model.NotificationResponse;
 import com.ec.widgets.CustomBottomNavigationView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -110,7 +121,25 @@ public class MainActivity extends AppCompatActivity {
             (findViewById(R.id.container)).setPadding(0, 0, 0, navHeight);
         }
         UiHelper.initToolbar(MainActivity.this, incToolBar, "E Smart Complain");
-        setupBadge(3, 2);
+
+        AppApplication.getRetrofit().create(Services.class)
+                .getNotificationData(PrefUtils.getUser(context).getUserId(), "0").enqueue(new Callback<NotificationResponse>() {
+            @Override
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getStatus() == 1) {
+                    if (response.body().getData() != null && response.body().getData().size() > 0) {
+                        setupBadge(Integer.parseInt(response.body().getData().get(0).getTotal()), 2);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+            }
+        });
+
+//        setupBadge(3, 2);
     }
 
     private void initListener() {
@@ -276,20 +305,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
-    private void setupBadge(int badgeCount, int menuIndex) {
+    public void setupBadge(int badgeCount, int menuIndex) {
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) navigation.getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(menuIndex);
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+        /*if (badgeCount == 0) {
+
+        }*/
 
         View badge = LayoutInflater.from(this)
                 .inflate(R.layout.badge_notification, bottomNavigationMenuView, false);
         this.txtCount = (TextView) badge.findViewById(R.id.txtCount);
         if (badgeCount == 0) {
+            txtCount.setText("34");
+//            txtCount.setVisibility(View.GONE);
             return;
         } else if (badgeCount <= 99) {
+            txtCount.setVisibility(View.VISIBLE);
+
             txtCount.setText(String.format("%d", badgeCount));
         } else {
+            txtCount.setVisibility(View.VISIBLE);
+
             txtCount.setText("99+");
         }
 
@@ -307,7 +345,36 @@ public class MainActivity extends AppCompatActivity {
                 txtCount.setHeight(size);
             }
         });
-        itemView.addView(badge);
+        if (badgeCount != 0) {
+            itemView.addView(badge);
+            itemView.setTag(itemView);
+        } else {
+            itemView.removeAllViews();
+
+            View prevItemView = (View) itemView.getTag();
+            prevItemView.setVisibility(View.GONE);
+        }
 
     }
+
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            setupBadge(0, 2);
+        }
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("now"));
+    }
+
+
 }

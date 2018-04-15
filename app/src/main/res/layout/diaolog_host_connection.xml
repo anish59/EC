@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bottom_navigation">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/edtUrl"
+        android:layout_margin="@dimen/dp12"
+        android:text="@string/no_internet_connection"
+        android:textColor="@color/colorWhite"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/edtUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp12"
+        android:background="@color/colorDullWhite"
+        android:hint="@string/local_host_url"
+        android:text="http://192.168.31.61" />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="@string/connect"
+        android:textColor="@color/colorWhite" />
+
+</RelativeLayout>

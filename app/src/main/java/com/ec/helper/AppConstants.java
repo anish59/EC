@@ -5,5 +5,6 @@ package com.ec.helper;
  */
 
 public class AppConstants {
-    public static final String BASE_URL="";
+    public static final String BASE_URL = "http://192.168.56.1/EComplain/";
+    public static final String GLIDE_BASE_URL = "http://192.168.56.1/EComplain/upload/";
 }

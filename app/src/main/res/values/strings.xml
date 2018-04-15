@@ -43,4 +43,7 @@
     <string name="done">Done !</string>
     <string name="email_id">Email-id</string>
     <string name="forgot_your_password">Forgot your Password ?</string>
+    <string name="local_host_url">Local Host URL</string>
+    <string name="no_internet_connection">No internet Connection</string>
+    <string name="connect">Connect</string>
 </resources>

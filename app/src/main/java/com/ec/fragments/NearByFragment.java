@@ -6,12 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ec.AppApplication;
 import com.ec.R;
@@ -31,8 +28,8 @@ import retrofit2.Response;
  * Created by anish on 06-02-2018.
  */
 
-public class LocationFragment extends Fragment {
-    private android.support.v7.widget.RecyclerView rvLocationPosts;
+public class NearByFragment extends Fragment {
+    private RecyclerView rvLocationPosts;
     private LocationComplainAdapter locationComplainAdapter;
     private List<Post> list;
     private ProgressDialog progressDialog;
@@ -62,7 +59,6 @@ public class LocationFragment extends Fragment {
         rvLocationPosts.setAdapter(locationComplainAdapter);
         progressDialog = new ProgressDialog(getActivity());
 
-        callApi();
     }
 
     private void callApi() {
@@ -74,14 +70,17 @@ public class LocationFragment extends Fragment {
                 progressDialog.dismiss();
                 if (response.body() != null && response.body().getData() != null) {
                     if (response.body().getData().size() > 0) {
+                        list = new ArrayList<>();
+                        for (int i = 0; i < response.body().getData().size(); i++) {
+                            if (distance(Double.parseDouble(response.body().getData().get(i).getLatitude()), Double.parseDouble(response.body().getData().get(i).getLongitude()), 22.3220425, 73.0329986) <= 10) {
+                                list.add(response.body().getData().get(i));
+                            }
+                        }
                         list = response.body().getData();
                         locationComplainAdapter.setData(list);
                     } else {
-                        Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 
@@ -90,5 +89,22 @@ public class LocationFragment extends Fragment {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
     }
 }

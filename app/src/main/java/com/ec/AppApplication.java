@@ -3,6 +3,9 @@ package com.ec;
 import android.app.Application;
 
 import com.ec.helper.AppConstants;
+import com.facebook.stetho.Stetho;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppApplication extends Application {
     private static Retrofit retrofit;
+    private static Gson gson;
     private static AppApplication app;
 
     @Override
@@ -24,6 +28,12 @@ public class AppApplication extends Application {
         super.onCreate();
         app = this;
         initRetroFit();
+        initGson();
+        initStetho();
+    }
+
+    private void initStetho() {
+        Stetho.initializeWithDefaults(app);
     }
 
     private void initRetroFit() {
@@ -44,5 +54,15 @@ public class AppApplication extends Application {
 
     public static Retrofit getRetrofit() {
         return retrofit;
+    }
+
+    private void initGson() {
+        gson = new GsonBuilder()
+                .setLenient()
+                .create();
+    }
+
+    public static Gson getGson() {
+        return gson;
     }
 }

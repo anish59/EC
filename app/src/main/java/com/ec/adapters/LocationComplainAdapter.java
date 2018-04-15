@@ -13,20 +13,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ec.R;
+import com.ec.helper.AppConstants;
+import com.ec.model.Post;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.http.POST;
 
 /**
  * Created by anish on 06-02-2018.
  */
 
 public class LocationComplainAdapter extends RecyclerView.Adapter<LocationComplainAdapter.MyViewHolder> {
+    private List<Post> data;
     private Context context;
 
 
-    public LocationComplainAdapter(Context context) {
+    public LocationComplainAdapter(Context context, List<Post> data) {
         this.context = context;
+        this.data = data;
     }
 
     @Override
@@ -39,22 +50,33 @@ public class LocationComplainAdapter extends RecyclerView.Adapter<LocationCompla
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        makeTextViewResizable(holder.txtDisc, 3, "View More", true);
+        holder.txtTitle.setText(data.get(position).getTitle());
+        holder.txtDisc.setText(data.get(position).getDescription());
+        Glide.with(context).load(AppConstants.GLIDE_BASE_URL + data.get(position).getImage()).into(holder.img);
     }
 
     @Override
     public int getItemCount() {
-        return 9;
+        return data.size();
+    }
+
+    public void setData(List<Post> data) {
+        this.data = new ArrayList<>();
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView txtName, txtDisc, txtTitle;
+        private ImageView img;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtDisc = (TextView) itemView.findViewById(R.id.txtDisc);
             txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
+            img = itemView.findViewById(R.id.img);
         }
     }
 

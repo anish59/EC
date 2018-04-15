@@ -8,7 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ec.AppApplication;
 import com.ec.R;
+import com.ec.apis.Services;
+import com.ec.helper.PrefUtils;
+import com.ec.model.LoginData;
+import com.ec.model.LoginResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by anish on 05-02-2018.
@@ -16,6 +25,12 @@ import com.ec.R;
 
 public class ProfileFragment extends Fragment {
     private android.widget.TextView idName;
+    private android.widget.TextView txtName;
+    private android.widget.TextView txtEmailId;
+    private android.widget.TextView txtMobile;
+    private android.widget.TextView txtTotal;
+    private android.widget.TextView txtSolved;
+    private android.widget.TextView txtUnsolved;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,14 +42,38 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_profile2, container, false);
+        this.txtUnsolved = (TextView) view.findViewById(R.id.txtUnsolved);
+        this.txtSolved = (TextView) view.findViewById(R.id.txtSolved);
+        this.txtTotal = (TextView) view.findViewById(R.id.txtTotal);
+        this.txtMobile = (TextView) view.findViewById(R.id.txtMobile);
+        this.txtEmailId = (TextView) view.findViewById(R.id.txtEmailId);
+        this.txtName = (TextView) view.findViewById(R.id.txtName);
+        callApi();
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    private void callApi() {
+        AppApplication.getRetrofit().create(Services.class).getUserProfile(PrefUtils.getUser(getActivity()).getUserId()).enqueue(new Callback<LoginResponse>() {
+            @Override
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                if (response.body() != null && response.body().getStatus() == 1) {
+                    if (response.body().getLoginData() != null) {
+                        LoginData loginData = response.body().getLoginData();
+                        txtName.setText(loginData.getName().trim());
+                        txtEmailId.setText(loginData.getEmailId().trim());
+                        txtMobile.setText(loginData.getMobile().trim());
+                        txtTotal.setText(loginData.getTotal());
+                        txtSolved.setText(loginData.getSolved());
+                        txtUnsolved.setText((Integer.parseInt(loginData.getTotal()) - Integer.parseInt(loginData.getSolved()) + ""));
+                    }
+                }
+            }
 
-      /*  String value = getArguments().getString("keyName", "Unknown");
-        idName.setText(value);*/
+            @Override
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+
+            }
+        });
     }
+
 }

@@ -44,10 +44,11 @@ public class HomeFragment extends Fragment {
 
     private void initInnerFragments() {
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
-        viewPagerAdapter.addFragment(new LocationFragment(), "City");
-        viewPagerAdapter.addFragment(new LocationFragment(), "Nearby");
-        viewPagerAdapter.addFragment(new LocationFragment(), "Yours");
+        viewPagerAdapter.addFragment(new LocationFragment(), "All Post");
+        viewPagerAdapter.addFragment(new NearByFragment(), "Nearby");
+        viewPagerAdapter.addFragment(new YourPostFragment(), "Yours");
         viewpager.setAdapter(viewPagerAdapter);
+        viewpager.setOffscreenPageLimit(2);
         tabs.setupWithViewPager(viewpager);
     }
 

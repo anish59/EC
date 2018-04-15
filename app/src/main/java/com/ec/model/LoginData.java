@@ -10,6 +10,25 @@ public class LoginData {
     String EmailId;
     String Mobile;
 
+    String Total;
+    String Solved;
+
+    public String getTotal() {
+        return Total;
+    }
+
+    public void setTotal(String total) {
+        Total = total;
+    }
+
+    public String getSolved() {
+        return Solved;
+    }
+
+    public void setSolved(String solved) {
+        Solved = solved;
+    }
+
     public String getUserId() {
         return UserId;
     }
