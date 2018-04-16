@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ec.AppApplication;
 import com.ec.R;
@@ -33,11 +35,13 @@ public class NearByFragment extends Fragment {
     private LocationComplainAdapter locationComplainAdapter;
     private List<Post> list;
     private ProgressDialog progressDialog;
+    private android.widget.TextView txtEmptyView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_location, container, false);
+        this.txtEmptyView = (TextView) view.findViewById(R.id.txtEmptyView);
         this.rvLocationPosts = (RecyclerView) view.findViewById(R.id.rvLocationPosts);
         return view;
     }
@@ -58,6 +62,7 @@ public class NearByFragment extends Fragment {
         rvLocationPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvLocationPosts.setAdapter(locationComplainAdapter);
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please wait");
 
     }
 
@@ -78,15 +83,20 @@ public class NearByFragment extends Fragment {
                         }
                         list = response.body().getData();
                         locationComplainAdapter.setData(list);
+                        setEmptyView(false);
                     } else {
+                        setEmptyView(true);
                     }
                 } else {
+                    setEmptyView(true);
                 }
             }
 
             @Override
             public void onFailure(Call<GetPostRes> call, Throwable t) {
                 progressDialog.dismiss();
+                Log.e("Error:2", t.toString());
+                setEmptyView(true);
             }
         });
     }
@@ -106,5 +116,22 @@ public class NearByFragment extends Fragment {
 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
+    }
+
+
+    private void setEmptyView(boolean isNoData) {
+        if (isNoData) {
+            txtEmptyView.setVisibility(View.VISIBLE);
+            rvLocationPosts.setVisibility(View.GONE);
+        } else {
+            txtEmptyView.setVisibility(View.GONE);
+            rvLocationPosts.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callApi();
     }
 }

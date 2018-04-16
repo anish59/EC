@@ -24,12 +24,12 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/gradient_bottom_navigation"
                 android:scaleType="centerCrop"
-                android:src="@drawable/no_image_found"/>
+                android:src="@drawable/no_image_found" />
 
             <android.support.design.widget.FloatingActionButton
+                android:id="@+id/imagePicker"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imagePicker"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="@dimen/dp8"
@@ -55,9 +55,10 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSubmit"
         style="@style/normalButton"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="end"
         android:background="@drawable/gradient_bottom_navigation"
         android:text="@string/submit" />

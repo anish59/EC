@@ -128,7 +128,9 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
                 if (response.isSuccessful() && response.body() != null && response.body().getStatus() == 1) {
                     if (response.body().getData() != null && response.body().getData().size() > 0) {
-                        setupBadge(Integer.parseInt(response.body().getData().get(0).getTotal()), 2);
+                        if (!response.body().getData().get(0).getTotal().isEmpty()) {
+                            setupBadge(Integer.parseInt(response.body().getData().get(0).getTotal()), 2);
+                        }
                     }
                 }
             }

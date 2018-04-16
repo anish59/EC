@@ -1,5 +1,6 @@
 package com.ec;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,11 +38,14 @@ public class SignUpActivity extends AppCompatActivity {
     private android.widget.EditText edtMobile;
     private android.widget.EditText edtPassword;
     private android.widget.EditText edtRePassword;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Pleas wait..");
         initViews();
         initListeners();
         initLogic();
@@ -108,12 +112,14 @@ public class SignUpActivity extends AppCompatActivity {
         registerReq.setMobile(mobile);
         registerReq.setName(name);
         registerReq.setPassword(password);
-
-
+        Log.e("registerReq", AppApplication.getGson().toJson(registerReq));
+        progressDialog.show();
         AppApplication.getRetrofit().create(Services.class).doRegister(registerReq).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                progressDialog.dismiss();
                 if (response.isSuccessful() && response.body().getStatus() == 1) {
+                    Log.e("registerReq", AppApplication.getGson().toJson(response.body()));
                     PrefUtils.setUser(context, response.body().getLoginData());
                     PrefUtils.setLoggedIn(context, true);
                     Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
@@ -127,6 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.e("Failure", t.getMessage());
                 Toast.makeText(context, "Error while processing", Toast.LENGTH_SHORT).show();
             }

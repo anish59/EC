@@ -36,11 +36,13 @@ public class LocationFragment extends Fragment {
     private LocationComplainAdapter locationComplainAdapter;
     private List<Post> list;
     private ProgressDialog progressDialog;
+    private android.widget.TextView txtEmptyView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_location, container, false);
+        this.txtEmptyView = (TextView) view.findViewById(R.id.txtEmptyView);
         this.rvLocationPosts = (RecyclerView) view.findViewById(R.id.rvLocationPosts);
         return view;
     }
@@ -61,7 +63,7 @@ public class LocationFragment extends Fragment {
         rvLocationPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvLocationPosts.setAdapter(locationComplainAdapter);
         progressDialog = new ProgressDialog(getActivity());
-
+        progressDialog.setMessage("Please wait");
         callApi();
     }
 
@@ -76,19 +78,38 @@ public class LocationFragment extends Fragment {
                     if (response.body().getData().size() > 0) {
                         list = response.body().getData();
                         locationComplainAdapter.setData(list);
+                        setEmptyView(false);
                     } else {
-                        Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        setEmptyView(true);
                     }
                 } else {
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
+//                    Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+                    setEmptyView(true);
                 }
             }
 
             @Override
             public void onFailure(Call<GetPostRes> call, Throwable t) {
                 progressDialog.dismiss();
+                Log.e("Error:", t.toString());
+                setEmptyView(true);
             }
         });
+    }
+
+    private void setEmptyView(boolean isNoData) {
+        if (isNoData) {
+            txtEmptyView.setVisibility(View.VISIBLE);
+            rvLocationPosts.setVisibility(View.GONE);
+        } else {
+            txtEmptyView.setVisibility(View.GONE);
+            rvLocationPosts.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callApi();
     }
 }

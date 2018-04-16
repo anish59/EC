@@ -1,5 +1,6 @@
 package com.ec.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ec.R;
 import com.ec.helper.AppConstants;
 import com.ec.model.Post;
@@ -47,12 +49,17 @@ public class LocationComplainAdapter extends RecyclerView.Adapter<LocationCompla
         return new MyViewHolder(view);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        makeTextViewResizable(holder.txtDisc, 3, "View More", true);
         holder.txtTitle.setText(data.get(position).getTitle());
         holder.txtDisc.setText(data.get(position).getDescription());
-        Glide.with(context).load(AppConstants.GLIDE_BASE_URL + data.get(position).getImage()).into(holder.img);
+//        Glide.with(context).load(AppConstants.GLIDE_BASE_URL + data.get(position).getImage()).into(holder.img);
+        Glide.with(context)
+                .load(AppConstants.GLIDE_BASE_URL + data.get(position).getImage())
+                .apply(new RequestOptions().placeholder(R.drawable.no_image_found).error(R.drawable.no_image_found))
+                .into(holder.img);
     }
 
     @Override

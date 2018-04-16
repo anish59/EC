@@ -28,7 +28,6 @@
                 android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ethan_hunt"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
@@ -45,7 +44,6 @@
                 android:id="@+id/txtEmailId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ethan_hunt_gmail_com"
                 android:textColor="@color/colorPrimary"
 
                 android:textSize="20sp" />
@@ -62,7 +60,6 @@
                 android:id="@+id/txtMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_9876543210"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 

@@ -9,7 +9,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="posts">Posts</string>
-    <string name="_22">22</string>
+    <string name="_22">0</string>
     <string name="solved">Solved</string>
     <string name="unsolved">Unsolved</string>
     <string name="up_votes">Up votes</string>
@@ -25,7 +25,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account?   Sign up</string>
     <string name="_9876543210">9876543210</string>
-    <string name="_44">44</string>
+    <string name="_44">0</string>
     <string name="jon_doe">Jon Doe</string>
     <string name="txt_probs">The first attack was on our laboratory -- they questioned the data analysis, our capabilities, our equipment and then as it got nastier, they resorted to personalised attacks on us and our integrity. Their favourite ploy was to dismiss us as a pawn in a conspiracy hatched by Europe (because we get funds from multilateral and bilateral agencies) to destroy the good name of us companies. But this was not all. We heard rumours of phone calls from Colin Powell, then us secretary of state, to the prime minister\'s office. We heard of Washington DC-based high-priced lawyers (lobbyists) flying down to cajole the powers here. We heard of intense activity in corridors in which we have no place.</string>
     <string name="title">Title</string>
@@ -46,4 +46,5 @@
     <string name="local_host_url">Local Host URL</string>
     <string name="no_internet_connection">No internet Connection</string>
     <string name="connect">Connect</string>
+    <string name="no_data">No Data !</string>
 </resources>

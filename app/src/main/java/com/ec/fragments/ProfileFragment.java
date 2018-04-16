@@ -1,8 +1,10 @@
 package com.ec.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,7 @@ public class ProfileFragment extends Fragment {
     private android.widget.TextView txtTotal;
     private android.widget.TextView txtSolved;
     private android.widget.TextView txtUnsolved;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,30 +51,41 @@ public class ProfileFragment extends Fragment {
         this.txtMobile = (TextView) view.findViewById(R.id.txtMobile);
         this.txtEmailId = (TextView) view.findViewById(R.id.txtEmailId);
         this.txtName = (TextView) view.findViewById(R.id.txtName);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("please wait");
         callApi();
         return view;
     }
 
     private void callApi() {
+        progressDialog.show();
         AppApplication.getRetrofit().create(Services.class).getUserProfile(PrefUtils.getUser(getActivity()).getUserId()).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                progressDialog.dismiss();
                 if (response.body() != null && response.body().getStatus() == 1) {
                     if (response.body().getLoginData() != null) {
                         LoginData loginData = response.body().getLoginData();
                         txtName.setText(loginData.getName().trim());
                         txtEmailId.setText(loginData.getEmailId().trim());
                         txtMobile.setText(loginData.getMobile().trim());
-                        txtTotal.setText(loginData.getTotal());
-                        txtSolved.setText(loginData.getSolved());
-                        txtUnsolved.setText((Integer.parseInt(loginData.getTotal()) - Integer.parseInt(loginData.getSolved()) + ""));
+                        if (loginData.getTotal() != null && !loginData.getTotal().isEmpty()) {
+                            txtTotal.setText(loginData.getTotal());
+                        }
+                        if (loginData.getSolved() != null && !loginData.getSolved().isEmpty()) {
+                            txtSolved.setText(loginData.getSolved());
+                        }
+                        if (loginData.getTotal() != null && loginData.getSolved() != null) {
+                            txtUnsolved.setText((Integer.parseInt(loginData.getTotal()) - Integer.parseInt(loginData.getSolved()) + ""));
+                        }
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+                progressDialog.dismiss();
+                Log.e("ErrorProfile:", t.toString());
             }
         });
     }

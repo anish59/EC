@@ -1,15 +1,16 @@
 package com.ec.fragments;
 
 import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ec.AppApplication;
@@ -36,17 +37,20 @@ public class YourPostFragment extends Fragment {
     private LocationComplainAdapter locationComplainAdapter;
     private List<Post> list;
     private ProgressDialog progressDialog;
+    private android.widget.TextView txtEmptyView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_location, container, false);
+        this.txtEmptyView = (TextView) view.findViewById(R.id.txtEmptyView);
         this.rvLocationPosts = (RecyclerView) view.findViewById(R.id.rvLocationPosts);
         list = new ArrayList<>();
         locationComplainAdapter = new LocationComplainAdapter(getActivity(), list);
         rvLocationPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvLocationPosts.setAdapter(locationComplainAdapter);
         progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Please wait");
         return view;
     }
 
@@ -75,19 +79,39 @@ public class YourPostFragment extends Fragment {
                     if (response.body().getData().size() > 0) {
                         list = response.body().getData();
                         locationComplainAdapter.setData(list);
+                        setEmptyView(false);
                     } else {
+                        setEmptyView(true);
                         Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
                     }
                 } else {
+                    setEmptyView(true);
                     Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
                 }
             }
 
             @Override
             public void onFailure(Call<GetPostRes> call, Throwable t) {
                 progressDialog.dismiss();
+                Log.e("Error:3", t.toString());
+                setEmptyView(true);
             }
         });
+    }
+
+    private void setEmptyView(boolean isNoData) {
+        if (isNoData) {
+            txtEmptyView.setVisibility(View.VISIBLE);
+            rvLocationPosts.setVisibility(View.GONE);
+        } else {
+            txtEmptyView.setVisibility(View.GONE);
+            rvLocationPosts.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        callApi();
     }
 }
