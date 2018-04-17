@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ec.AppApplication;
 import com.ec.R;
@@ -78,6 +79,12 @@ public class ProfileFragment extends Fragment {
                         if (loginData.getTotal() != null && loginData.getSolved() != null) {
                             txtUnsolved.setText((Integer.parseInt(loginData.getTotal()) - Integer.parseInt(loginData.getSolved()) + ""));
                         }
+                    }
+                } else {
+                    if (response.body() != null && response.body().getMessage() != null) {
+                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Oops there seems to be some issue, please try again later!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

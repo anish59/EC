@@ -127,7 +127,11 @@ public class SignUpActivity extends AppCompatActivity {
                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body() != null && response.body().getMessage() != null) {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Oops there seems to be some issue, please try again later!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

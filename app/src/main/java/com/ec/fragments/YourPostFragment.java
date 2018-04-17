@@ -71,7 +71,7 @@ public class YourPostFragment extends Fragment {
     private void callApi() {
         progressDialog.show();
         Services services = AppApplication.getRetrofit().create(Services.class);
-        services.getYourPosts(0, PrefUtils.getUser(getContext()).getUserId()).enqueue(new Callback<GetPostRes>() {
+        services.getYourPosts(1, PrefUtils.getUser(getContext()).getUserId()).enqueue(new Callback<GetPostRes>() {
             @Override
             public void onResponse(Call<GetPostRes> call, Response<GetPostRes> response) {
                 progressDialog.dismiss();
@@ -86,7 +86,7 @@ public class YourPostFragment extends Fragment {
                     }
                 } else {
                     setEmptyView(true);
-                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "error while processing", Toast.LENGTH_SHORT).show();
                 }
             }
 

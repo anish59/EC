@@ -1,6 +1,7 @@
 package com.ec.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -21,6 +23,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by anish on 05-02-2018.
@@ -216,5 +222,48 @@ public class FunctionHelper {
         }
 
         return inSampleSize;
+    }
+
+    public static void turnGPSOn(Context context) {
+        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if (!provider.contains("gps")) { //if gps is disabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            context.sendBroadcast(poke);
+        }
+    }
+
+    public static void turnGPSOff(Context context) {
+        String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if (provider.contains("gps")) { //if gps is enabled
+            final Intent poke = new Intent();
+            poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+            poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+            poke.setData(Uri.parse("3"));
+            context.sendBroadcast(poke);
+        }
+    }
+
+    public static Date stringToDate(String dateStr, String pattern, Context context)
+            throws Exception {
+        return new SimpleDateFormat(pattern, Locale.US).parse(dateStr);
+    }
+
+    //Convert Date to Calendar
+    private Calendar dateToCalendar(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+
+    }
+
+    //Convert Calendar to Date
+    private Date calendarToDate(Calendar calendar) {
+        return calendar.getTime();
     }
 }

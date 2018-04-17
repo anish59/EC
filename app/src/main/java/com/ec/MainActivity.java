@@ -47,6 +47,8 @@ import com.ec.widgets.CustomBottomNavigationView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,6 +58,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+    private int tempBagdeCount = 2;
     private android.widget.FrameLayout fragmentHolder;
     private CustomBottomNavigationView navigation;
     private android.widget.RelativeLayout container;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textCartItemCount;
     private android.support.design.widget.FloatingActionButton fabAddComplain;
     private double mCartItemCount = 3;
+    private View prevBadgeView;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -90,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    private TextView txtCount;
+
 
     @SuppressLint("ObsoleteSdkInt")
     @Override
@@ -100,8 +104,9 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         init();
 
-
     }
+
+
 
     private void init() {
 
@@ -268,6 +273,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_exit:
                 finish();
                 return true;
+            case R.id.menuLogOut:
+                PrefUtils.setLoggedIn(context, false);
+                PrefUtils.setUser(context, null);
+                PrefUtils.setUserLatLong(context, null);
+                Intent intent = new Intent(context, SplashScreenActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -308,28 +322,21 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public void setupBadge(int badgeCount, int menuIndex) {
+        TextView txtCount;
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) navigation.getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(menuIndex);
         BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-        /*if (badgeCount == 0) {
-
-        }*/
 
         View badge = LayoutInflater.from(this)
                 .inflate(R.layout.badge_notification, bottomNavigationMenuView, false);
-        this.txtCount = (TextView) badge.findViewById(R.id.txtCount);
-        if (badgeCount == 0) {
-            txtCount.setText("34");
-//            txtCount.setVisibility(View.GONE);
-            return;
-        } else if (badgeCount <= 99) {
-            txtCount.setVisibility(View.VISIBLE);
+        txtCount = (TextView) badge.findViewById(R.id.txtCount);
 
+        if (badgeCount <= 99) {
+            txtCount.setVisibility(View.VISIBLE);
             txtCount.setText(String.format("%d", badgeCount));
         } else {
             txtCount.setVisibility(View.VISIBLE);
-
             txtCount.setText("99+");
         }
 
@@ -348,34 +355,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (badgeCount != 0) {
+            if (prevBadgeView != null) {
+                itemView.removeView(prevBadgeView);
+            }
             itemView.addView(badge);
-            itemView.setTag(itemView);
+            prevBadgeView = badge;
         } else {
-            itemView.removeAllViews();
-
-            View prevItemView = (View) itemView.getTag();
-            prevItemView.setVisibility(View.GONE);
+            if (prevBadgeView != null) {
+                itemView.removeView(prevBadgeView);
+            } else {
+                itemView.removeView(badge);
+            }
         }
 
-    }
-
-    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            setupBadge(0, 2);
-        }
-    };
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("now"));
     }
 
 

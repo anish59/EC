@@ -68,6 +68,7 @@ public class AddComplainActivity extends AppCompatActivity {
     private android.support.design.widget.AppBarLayout appbarlayout;
     private android.support.v4.widget.NestedScrollView scroll;
     private android.widget.Button btnSubmit;
+    private int count = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,6 +155,7 @@ public class AddComplainActivity extends AppCompatActivity {
                 addComplainReq.setLongitude(PrefUtils.getUserLatLong(AddComplainActivity.this).getLon() + "");
 
                 callservice(addComplainReq);
+                Log.e("Counter", ">" + count++);
             }
         });
 
@@ -188,7 +190,11 @@ public class AddComplainActivity extends AppCompatActivity {
                     Toast.makeText(AddComplainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(AddComplainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body() != null && response.body().getMessage() != null) {
+                        Toast.makeText(AddComplainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddComplainActivity.this, "Oops there seems to be some issue, please try again later!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -205,7 +211,7 @@ public class AddComplainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+        getMenuInflater().inflate(R.menu.add_complain_activity, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

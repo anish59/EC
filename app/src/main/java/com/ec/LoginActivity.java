@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            Toast.makeText(this, "GPS is not Enabled in your device", Toast.LENGTH_SHORT).show();
+            FunctionHelper.turnGPSOn(context);
         }
         GPSTracker gpsTracker = new GPSTracker(this);
         PrefUtils.setUserLatLong(context, new UserLatLong(gpsTracker.getLatitude(), gpsTracker.getLongitude()));
@@ -142,7 +142,11 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    if (response.body() != null && response.body().getMessage() != null) {
+                        Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Oops there seems to be some issue, please try again later!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ec.AppApplication;
+import com.ec.MainActivity;
 import com.ec.R;
 import com.ec.adapters.NotificationAdapter;
 import com.ec.apis.Services;
@@ -43,6 +44,7 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
 
@@ -62,6 +64,7 @@ public class NotificationFragment extends Fragment {
         intent.setAction("now");
         LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
         callApi();
+        ((MainActivity) getActivity()).setupBadge(0, 2);//it should be 2 only
         return view;
     }
 
@@ -80,6 +83,8 @@ public class NotificationFragment extends Fragment {
                     } else {
                         setEmptyView(true);
                     }
+                } else {
+                    setEmptyView(true);
                 }
             }
 
@@ -102,5 +107,6 @@ public class NotificationFragment extends Fragment {
             rvNotificationItems.setVisibility(View.VISIBLE);
         }
     }
+
 
 }

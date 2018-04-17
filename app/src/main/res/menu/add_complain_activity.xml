@@ -6,9 +6,4 @@
         android:icon="@drawable/ic_cancel"
         android:title="@string/title_home"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/menuLogOut"
-        android:icon="@drawable/ic_cancel"
-        android:title="@string/logout"
-        app:showAsAction="never" />
 </menu>

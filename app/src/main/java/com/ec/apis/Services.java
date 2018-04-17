@@ -2,6 +2,7 @@ package com.ec.apis;
 
 import com.ec.model.AddComplainReq;
 import com.ec.model.BaseResponse;
+import com.ec.model.ForgotPasswordResponse;
 import com.ec.model.GetPostRes;
 import com.ec.model.LoginRequest;
 import com.ec.model.LoginResponse;
@@ -40,5 +41,8 @@ public interface Services {
 
     @GET("GetNotification.php")
     Call<NotificationResponse> getNotificationData(@Query("UserId") String UserId, @Query("Show") String ShowID);
+
+    @GET("GetPassword.php")
+    Call<ForgotPasswordResponse> getPassword(@Query("EmailId") String emailId);
 }
 
