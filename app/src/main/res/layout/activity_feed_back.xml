@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_marginBottom="@dimen/dp4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtLoginLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?actionBarSize"
+            android:layout_marginTop="100dp"
+            android:text="FeedBack"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_35"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="?actionBarSize"
+            android:layout_marginRight="?actionBarSize"
+            android:layout_marginTop="?actionBarSize"
+            android:hint="@string/title"
+            android:maxLength="35"
+            android:maxLines="2" />
+
+        <EditText
+            android:id="@+id/edtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="?actionBarSize"
+            android:layout_marginRight="?actionBarSize"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/border_background"
+            android:gravity="start"
+            android:hint="@string/tell_me_about_it"
+            android:maxLines="8"
+            android:minLines="6"
+            android:padding="@dimen/dp4" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        style="@style/normalButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="?actionBarSize"
+        android:layout_marginStart="?actionBarSize"
+        android:text="@string/submit" />
+</RelativeLayout>

@@ -158,5 +158,3 @@ public class SignUpActivity extends AppCompatActivity {
 
 }
 
-/*Teri bahoon meh jo sukun tha mila ...
-mene dhundha bohot par fir na mila....*/

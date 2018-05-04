@@ -115,5 +115,6 @@
     <dimen name="sp_35">35sp</dimen>
     <dimen name="sp_14">14sp</dimen>
     <dimen name="sp18">18sp</dimen>
+    <dimen name="sp24">24sp</dimen>
 
 </resources>

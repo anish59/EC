@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_upDownVote"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp2"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imgUpVote"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginEnd="@dimen/dp2"
+        android:padding="@dimen/dp6"
+        android:src="@drawable/up_vote"
+        android:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/txtUpVote"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginEnd="@dimen/dp8"
+        android:layout_toEndOf="@+id/imgUpVote"
+        android:gravity="center"
+        android:text="24"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18" />
+
+    <ImageView
+        android:id="@+id/imgDownVote"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginEnd="@dimen/dp2"
+        android:layout_toEndOf="@+id/txtUpVote"
+        android:padding="@dimen/dp6"
+        android:src="@drawable/down_vote" />
+
+    <TextView
+        android:id="@+id/txtDownVote"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp50"
+        android:layout_marginEnd="@dimen/dp2"
+        android:layout_toEndOf="@+id/imgDownVote"
+        android:gravity="center"
+        android:text="12"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp18" />
+
+</RelativeLayout>

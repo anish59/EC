@@ -43,6 +43,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/FullscreenTheme" />
+        <activity android:name=".FeedBackActivity"></activity>
     </application>
 
 </manifest>

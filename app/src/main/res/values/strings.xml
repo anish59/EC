@@ -48,4 +48,8 @@
     <string name="connect">Connect</string>
     <string name="no_data">No Data !</string>
     <string name="logout">Logout</string>
+    <string name="down_vote">down Vote</string>
+    <string name="up_vote">Up Vote</string>
+    <string name="feedback">FeedBack</string>
+    <string name="tell_me_about_it">Tell me about it!</string>
 </resources>

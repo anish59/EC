@@ -5,10 +5,15 @@
         android:id="@+id/menu_exit"
         android:icon="@drawable/ic_cancel"
         android:title="@string/title_home"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuLogOut"
         android:icon="@drawable/ic_cancel"
         android:title="@string/logout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuFeedBack"
+        android:icon="@drawable/ic_cancel"
+        android:title="@string/feedback"
         app:showAsAction="never" />
 </menu>

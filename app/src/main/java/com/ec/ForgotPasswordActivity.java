@@ -70,11 +70,23 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                 }
                                 List<String> emailidList = new ArrayList<>();
                                 emailidList.add(email);
-                                new SendMailTask().execute("ec.complain@gmail.com",
+                                new SendMailTask(new SendMailTask.MailSentListener() {
+                                    @Override
+                                    public void onSuccessful() {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ForgotPasswordActivity.this, "Password has been send to your account, please check!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onMailFailure() {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(ForgotPasswordActivity.this, "Oops! There seems to be some issue, Please try again later!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).execute("ec.complain@gmail.com",
                                         "12345@54321", emailidList, "Your account password", "your password: " + userPassword + "<br> please take care.<br>Enjoy using our app, thank you!");
-                                progressDialog.dismiss();
-                                Toast.makeText(ForgotPasswordActivity.this, "Password has been send to your account, please check!", Toast.LENGTH_SHORT).show();
-                                finish();
+
+
                             }
                         } else {
                             if (response.body() != null && response.body().getMessage() != null) {

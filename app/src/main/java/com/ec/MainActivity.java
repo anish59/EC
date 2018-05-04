@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void init() {
 
         initListener();
@@ -272,6 +271,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_exit:
                 finish();
+                return true;
+            case R.id.menuFeedBack:
+                startActivity(new Intent(context, FeedBackActivity.class));
                 return true;
             case R.id.menuLogOut:
                 PrefUtils.setLoggedIn(context, false);

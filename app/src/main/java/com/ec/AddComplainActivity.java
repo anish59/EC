@@ -180,13 +180,15 @@ public class AddComplainActivity extends AppCompatActivity {
 
     private void callservice(AddComplainReq addComplainReq) {
         Services services = AppApplication.getRetrofit().create(Services.class);
-
-
+        String req = AppApplication.getGson().toJson(addComplainReq);
+        Log.e("addComplainReq", req);
         services.addComplain(addComplainReq).enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
                 progressDialog.dismiss();
+                Log.e("addComplainRes", AppApplication.getGson().toJson(response.body()));
                 if (response.isSuccessful() && response.body().getStatus() == 1) {
+
                     Toast.makeText(AddComplainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {

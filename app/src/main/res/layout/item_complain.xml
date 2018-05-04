@@ -71,6 +71,9 @@
                     android:textColor="@color/black"
                     android:visibility="gone" />
             </RelativeLayout>
+
+            <include layout="@layout/include_layout_updown_vote" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
