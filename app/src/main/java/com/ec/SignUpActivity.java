@@ -89,6 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         String name = edtName.getText().toString().trim();
         String mobile = edtMobile.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
+        String re_password = edtRePassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(context, "Please enter email", Toast.LENGTH_SHORT).show();
@@ -104,6 +105,14 @@ public class SignUpActivity extends AppCompatActivity {
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(context, "Please enter password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(re_password)) {
+            Toast.makeText(context, "Please enter confirm-password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!password.equals(re_password)) {
+            Toast.makeText(context, "please enter same confirm password", Toast.LENGTH_SHORT).show();
             return;
         }
 

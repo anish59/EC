@@ -275,6 +275,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menuFeedBack:
                 startActivity(new Intent(context, FeedBackActivity.class));
                 return true;
+            case R.id.menuPayTax:
+                startActivity(new Intent(context, PaymentActivity.class));
+                return true;
             case R.id.menuLogOut:
                 PrefUtils.setLoggedIn(context, false);
                 PrefUtils.setUser(context, null);

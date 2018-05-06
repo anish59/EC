@@ -1,0 +1,14 @@
+rajor_pay:
+
+email: ec.complain@gmail.com
+pwd: 12345a54321
+
+gmail:
+email: ec.complain@gmail.com
+pwd: 12345@54321
+
+
+potential signUp error:
+//E/Failure: Use JsonReader.setLenient(true) to accept malformed JSON at line 1 column 1 path $
+
+

@@ -43,7 +43,17 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".FeedBackActivity"></activity>
+        <activity android:name=".FeedBackActivity">
+
+        </activity>
+        <activity android:name=".PaymentActivity">
+
+        </activity>
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_EBaEOQGHvc82Wr" />
+
     </application>
 
 </manifest>

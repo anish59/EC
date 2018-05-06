@@ -54,11 +54,12 @@ public class FeedBackActivity extends AppCompatActivity {
     }
 
     private void sendFeedBackMail() {
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("plain/text");
-//        i.setData(Uri.parse("ec.complain@gmail.com"));
-        i.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
-        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ec.complain@gmail.com"});
+        Intent i = new Intent(Intent.ACTION_SENDTO);
+        i.setType("message/rfc822");
+
+        i.setData(Uri.parse("mailto:ec.complain@gmail.com"));
+//        i.setClassName("com.google.android.gm", "com.google.android.gm.ComposeActivityGmail");
+//        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ec.complain@gmail.com"});
         i.putExtra(Intent.EXTRA_SUBJECT, edtTitle.getText().toString().trim());
         i.putExtra(Intent.EXTRA_TEXT, edtContent.getText().toString().trim());
         try {
@@ -75,8 +76,8 @@ public class FeedBackActivity extends AppCompatActivity {
         this.edtTitle = (EditText) findViewById(R.id.edtTitle);
         this.txtLoginLabel = (TextView) findViewById(R.id.txtLoginLabel);
     }
-    public void sendEmail()
-    {
+
+    public void sendEmail() {
 
         Intent intent = new Intent(Intent.ACTION_SEND);
 

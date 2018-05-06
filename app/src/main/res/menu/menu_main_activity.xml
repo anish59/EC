@@ -7,13 +7,18 @@
         android:title="@string/title_home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuLogOut"
-        android:icon="@drawable/ic_cancel"
-        android:title="@string/logout"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/menuFeedBack"
         android:icon="@drawable/ic_cancel"
         android:title="@string/feedback"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuPayTax"
+        android:icon="@drawable/ic_cancel"
+        android:title="@string/pay_tax"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuLogOut"
+        android:icon="@drawable/ic_cancel"
+        android:title="@string/logout"
         app:showAsAction="never" />
 </menu>

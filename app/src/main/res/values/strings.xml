@@ -52,4 +52,6 @@
     <string name="up_vote">Up Vote</string>
     <string name="feedback">FeedBack</string>
     <string name="tell_me_about_it">Tell me about it!</string>
+    <string name="you_have_to_pay_500_inr_for_house_tax">you have to pay\n500 INR\nfor House Tax.</string>
+    <string name="pay_tax">Pay Tax</string>
 </resources>

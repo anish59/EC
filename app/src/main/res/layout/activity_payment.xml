@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_marginBottom="@dimen/dp4"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtLoginLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="?actionBarSize"
+            android:layout_marginTop="100dp"
+            android:text="Pay Tax"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_35"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+    <TextView
+        android:background="@drawable/border_background"
+        android:layout_centerInParent="true"
+        android:textColor="@color/black"
+        android:id="@+id/txtHouseTax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp6"
+        android:layout_margin="@dimen/dp6"
+        android:text="@string/you_have_to_pay_500_inr_for_house_tax"
+        android:textSize="@dimen/sp18" />
+
+
+    <Button
+        android:id="@+id/btnSubmit"
+        style="@style/normalButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="?actionBarSize"
+        android:layout_marginStart="?actionBarSize"
+        android:text="@string/submit" />
+</RelativeLayout>
