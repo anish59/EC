@@ -30,6 +30,9 @@ public interface Services {
     @POST("AddPost.php")
     Call<BaseResponse> addComplain(@Body AddComplainReq addComplainReq);
 
+    @GET("AddVote.php")
+    Call<BaseResponse> addVote(@Query("UserId") String userId, @Query("PostId") String PostId, @Query("Vote") String Vote);
+
     @POST("UserRegister.php")
     Call<LoginResponse> doRegister(@Body RegisterReq registerRequest);
 

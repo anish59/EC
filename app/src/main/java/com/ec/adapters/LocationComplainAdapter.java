@@ -21,25 +21,26 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.ec.R;
 import com.ec.helper.AppConstants;
+import com.ec.helper.PrefUtils;
 import com.ec.model.Post;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.http.POST;
 
 /**
  * Created by anish on 06-02-2018.
  */
 
 public class LocationComplainAdapter extends RecyclerView.Adapter<LocationComplainAdapter.MyViewHolder> {
+    private OnVoteClick onVoteClick;
     private List<Post> data;
     private Context context;
 
 
-    public LocationComplainAdapter(Context context, List<Post> data) {
+    public LocationComplainAdapter(Context context, List<Post> data, OnVoteClick onVoteClick) {
         this.context = context;
         this.data = data;
+        this.onVoteClick = onVoteClick;
     }
 
     @Override
@@ -60,6 +61,33 @@ public class LocationComplainAdapter extends RecyclerView.Adapter<LocationCompla
                 .load(AppConstants.GLIDE_BASE_URL + data.get(position).getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.no_image_found).error(R.drawable.no_image_found))
                 .into(holder.img);
+        holder.txtUpVote.setText((data.get(position).getUpVote() == null || (data.get(position).getUpVote().trim().length() == 0)) ? "0" : data.get(position).getUpVote());
+        holder.txtDownVote.setText((data.get(position).getDownVote() == null || (data.get(position).getDownVote().trim().length() == 0)) ? "0" : data.get(position).getDownVote());
+
+        holder.txtUpVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onVoteClick.onVoteClick(PrefUtils.getUser(context).getUserId(), data.get(position).getId(), "1");
+            }
+        });
+        holder.txtDownVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onVoteClick.onVoteClick(PrefUtils.getUser(context).getUserId(), data.get(position).getId(), "0");
+            }
+        });
+        holder.imgUpVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onVoteClick.onVoteClick(PrefUtils.getUser(context).getUserId(), data.get(position).getId(), "1");
+            }
+        });
+        holder.imgDownVote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onVoteClick.onVoteClick(PrefUtils.getUser(context).getUserId(), data.get(position).getId(), "0");
+            }
+        });
     }
 
     @Override
@@ -75,14 +103,18 @@ public class LocationComplainAdapter extends RecyclerView.Adapter<LocationCompla
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView txtName, txtDisc, txtTitle;
-        private ImageView img;
+        private final TextView txtName, txtDisc, txtTitle, txtUpVote, txtDownVote;
+        private ImageView img, imgUpVote, imgDownVote;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txtName);
             txtDisc = (TextView) itemView.findViewById(R.id.txtDisc);
             txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
+            txtUpVote = (TextView) itemView.findViewById(R.id.txtUpVote);
+            txtDownVote = (TextView) itemView.findViewById(R.id.txtDownVote);
+            imgUpVote = (ImageView) itemView.findViewById(R.id.imgUpVote);
+            imgDownVote = (ImageView) itemView.findViewById(R.id.imgDownVote);
             img = itemView.findViewById(R.id.img);
         }
     }
@@ -174,6 +206,10 @@ public class LocationComplainAdapter extends RecyclerView.Adapter<LocationCompla
             }
         });
 
+    }
+
+    public interface OnVoteClick {
+        void onVoteClick(String userId, String postId, String vote);
     }
 
 }

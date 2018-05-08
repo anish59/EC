@@ -6,7 +6,23 @@ package com.ec.model;
 
 public class Post {
     private String Id;
-    private String Title, Image, Description, UserId, City, Latitude, Longitude, Status;
+    private String Title, Image, Description, UserId, City, Latitude, Longitude, Status, UpVote, DownVote;
+
+    public String getUpVote() {
+        return UpVote;
+    }
+
+    public void setUpVote(String upVote) {
+        UpVote = upVote;
+    }
+
+    public String getDownVote() {
+        return DownVote;
+    }
+
+    public void setDownVote(String downVote) {
+        DownVote = downVote;
+    }
 
     public String getId() {
         return Id;

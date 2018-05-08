@@ -18,6 +18,7 @@ import com.ec.R;
 import com.ec.adapters.LocationComplainAdapter;
 import com.ec.apis.Services;
 import com.ec.helper.PrefUtils;
+import com.ec.model.BaseResponse;
 import com.ec.model.GetPostRes;
 import com.ec.model.Post;
 
@@ -46,7 +47,22 @@ public class YourPostFragment extends Fragment {
         this.txtEmptyView = (TextView) view.findViewById(R.id.txtEmptyView);
         this.rvLocationPosts = (RecyclerView) view.findViewById(R.id.rvLocationPosts);
         list = new ArrayList<>();
-        locationComplainAdapter = new LocationComplainAdapter(getActivity(), list);
+        locationComplainAdapter = new LocationComplainAdapter(getActivity(), list, new LocationComplainAdapter.OnVoteClick() {
+            @Override
+            public void onVoteClick(String userId, String postId, String vote) {
+                AppApplication.getRetrofit().create(Services.class).addVote(userId, postId, vote).enqueue(new Callback<BaseResponse>() {
+                    @Override
+                    public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                        callApi(false);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BaseResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         rvLocationPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvLocationPosts.setAdapter(locationComplainAdapter);
         progressDialog = new ProgressDialog(getActivity());
@@ -58,7 +74,7 @@ public class YourPostFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && getActivity() != null) {
-            callApi();
+            callApi(true);
         }
     }
 
@@ -68,13 +84,15 @@ public class YourPostFragment extends Fragment {
 
     }
 
-    private void callApi() {
-        progressDialog.show();
+    private void callApi(boolean b) {
+        if (b)
+            progressDialog.show();
         Services services = AppApplication.getRetrofit().create(Services.class);
         services.getYourPosts(1, PrefUtils.getUser(getContext()).getUserId()).enqueue(new Callback<GetPostRes>() {
             @Override
             public void onResponse(Call<GetPostRes> call, Response<GetPostRes> response) {
-                progressDialog.dismiss();
+                if (b)
+                    progressDialog.dismiss();
                 if (response.body() != null && response.body().getData() != null) {
                     if (response.body().getData().size() > 0) {
                         list = response.body().getData();
@@ -82,17 +100,18 @@ public class YourPostFragment extends Fragment {
                         setEmptyView(false);
                     } else {
                         setEmptyView(true);
-                        Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     setEmptyView(true);
-                    Toast.makeText(getActivity(), "error while processing", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "error while processing", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<GetPostRes> call, Throwable t) {
-                progressDialog.dismiss();
+                if (b)
+                    progressDialog.dismiss();
                 Log.e("Error:3", t.toString());
                 setEmptyView(true);
             }
@@ -112,6 +131,6 @@ public class YourPostFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        callApi();
+        callApi(true);
     }
 }
